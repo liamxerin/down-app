@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <title>YoutubeB</title>
+    <link rel="stylesheet" href="nav2.css" />
+  </head>
+
+  <style>
+    #overlay {
+      position: fixed;
+      display: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .spinner-grow {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 80px;
+      width: 80px;
+    }
+    main {
+      margin: 0;
+      padding: 0;
+    }
+    .menu-bar {
+      background-color: #3ebe2d;
+    }
+    .nav-link {
+      font-size: 14px;
+      margin: 10px;
+      /* color: #fff!important; */
+    }
+    .navbar-nav {
+      text-align: right;
+      margin-right: 20px;
+    }
+    .menu-bar .navbar-toggler {
+      padding-right: 20px;
+      outline: none !important;
+      border: none !important;
+    }
+    #fa {
+      color: #fff !important;
+      font-size: 26px;
+    }
+    .nav-link:hover {
+      font-weight: 600;
+      border-bottom: 1px solid #fff;
+    }
+    .navbar-brand img {
+      width: 50px;
+      margin-top: 5px;
+      margin-left: 20px;
+    }
+    @media only screen and (max-width: 1000px) {
+      .nav-link:hover {
+        border-bottom: none !important;
+      }
+    }
+    #nav-btn {
+      border: none;
+      border-radius: 10px;
+      background: none;
+      color: black;
+    }
+
+    form .txt_field {
+      position: relative;
+      border-bottom: 2px solid #adadad;
+      margin: 10px;
+    }
+
+    .txt_field input {
+      width: 100%;
+      padding: 0 5px;
+      height: 20px;
+      font-size: 15px;
+      border: none;
+      background: none;
+      outline: none;
+    }
+    .progress {
+        width: 100%;
+        background-color: #ddd;
+      }
+      .progress-bar {
+        width: 0%;
+        height: 40px;
+        background-color: #4caf50;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+      }
+
+    /* .txt_field label{
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        color: #adadad;
+        transform: translateY(-50%);
+        font-size: 16px;
+        pointer-events: none;
+        transition: .5s;
+    }  */
+    /* .txt_field span::before{
+        content: '';
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background: #2691d9;
+        transition: .5s;
+    } */
+    /* .txt_field input:focus ~ label,
+    .txt_field input:valid ~ label{
+        top: 5px;
+        color: #2691d9;
+    } */
+    /* .txt_field input:focus ~ span::before,
+    .txt_field input:valid ~ span::before{
+        width: 100%;
+    } */
+  </style>
+
+  <body>
+    <div class="header">
+      <div class="menu-bar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#"
+                    >Home page</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">About us</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    List
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Another action</a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Contact </a>
+                </li>
+              </ul>
+              <form class="d-flex" role="search">
+                <div class="txt_field container-fluid">
+                  <input
+                    class="form-control me-2"
+                    type="search"
+                    placeholder=""
+                    aria-label="Search"
+                  />
+                </div>
+
+                <button id="nav-btn">
+                  <i class="fa-solid fa-magnifying-glass" type="submit"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-6 mx-auto">
+          <div class="card card-body mt-4">
+            <h4 class="card-title">Facebook video Downloader</h4>
+            <form action="/facebook/video" method="get">
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="link"
+                  placeholder="Enter video link here "
+                  required
+                />
+              </div>
+              <button id="btn" type="submit" class="btn btn-primary">
+                Enter
+              </button>
+            </form>
+          </div>
+          
+
+    <div id="overlay">
+      <div class="spinner-grow text-success" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <!-- <button id="o">on</button> -->
+
+    <!-- js -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#btn").on("click", () => {
+          if ($(".form-control").length > 0 && $(".form-control").val() != "") {
+            $("#overlay").css("display", "block");
+          }
+        });
+      });
+
+      function downloadVideo() {
+        // Simulated video download
+        let progress = 0;
+        const progressBar = document.getElementById('progressBar');
+  
+        const interval = setInterval(() => {
+          progress += 5; // Simulated progress increment
+          if (progress >= 100) {
+            clearInterval(interval);
+            progressBar.style.width = '100%';
+            progressBar.innerHTML = '100% Complete';
+          } else {
+            progressBar.style.width = `${progress}%`;
+            progressBar.innerHTML = `${progress}%`;
+          }
+        }, 500); // Simulated interval for progress update (milliseconds)
+      }
+    </script>
+  </body>
+</html>
