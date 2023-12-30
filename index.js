@@ -4,6 +4,8 @@ const fs = require("fs");
 const { exec } = require("youtube-dl-exec");
 const { google } = require("googleapis");
 const axios = require("axios");
+const router = express.Router();
+const serverless = require("serverless-http");
 // const fbVideoDownloader = require("fb-video-downloader");
 
 // Your code using fb-video-downloader module
@@ -18,12 +20,12 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.set("views", "./views");
 // get home page for
-app.get("/youtube", (req, res) => {
+router.get("/youtube", (req, res) => {
   const video = 0;
 
   res.render("home", { video: video });
 });
-app.get("/facebook", (req, res) => {
+router.get("/facebook", (req, res) => {
   const video = 0;
 
   res.render("facebook", { video: video });
@@ -36,7 +38,7 @@ function extractVideoId(url) {
   return match ? match[1] : null;
 }
 
-app.get("/youtube/video", async (req, res) => {
+router.get("/youtube/video", async (req, res) => {
   try {
     const link = req.query.link; // Extract the 'link' query parameter
     const videoId = extractVideoId(link); // Function to extract video ID from the URL
@@ -64,7 +66,7 @@ app.get("/youtube/video", async (req, res) => {
 });
 
 // submit form to download YouTube video
-app.post("/youtube/video/download", async (req, res) => {
+router.post("/youtube/video/download", async (req, res) => {
   const video = 0;
   const videoLink = req.body.link;
 
@@ -101,9 +103,11 @@ app.post("/youtube/video/download", async (req, res) => {
     res.status(500).send("Error downloading video");
   }
 });
-
+app.use(" /.netlify/functions/api", router);
 // listen to the port
-const port = 3000;
-app.listen(port, () => {
-  console.log("Server listening on port", port);
-});
+// const port = 3000;
+// app.listen(port, () => {
+//   console.log("Server listening on port", port);
+// });
+
+module.exports.handler = serverless(app);
