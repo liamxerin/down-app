@@ -68,17 +68,17 @@ router.post("/youtube/video/download", async (req, res) => {
   try {
     const videoQuality = req.body.quality;
     const options = ["-f", "bestvideo[height<=" + videoQuality + "]+bestaudio"];
-    const videoName = "F:\\youtube-downloader\\functions\\downloaded_video.mp4"; // Specify the name for the downloaded video file
+    const videoName = "downloaded_video.mp4"; // Specify the name for the downloaded video file
     const videoStream = await exec([videoLink, ...options], {
       output: videoName,
     });
-    const filePath = videoName;
+    const filePath = __dirname + "/" + videoName;
     const stats = await fs.promises.stat(filePath);
     const fileSizeInBytes = stats.size;
     console.log(`File Size: ${fileSizeInBytes} bytes`);
     console.log("Video downloaded successfully:", videoName);
     console.log("Video downloaded successfully:", options);
-    res.download(filePath, async (err) => {
+    res.download(filePath, videoName, async (err) => {
       if (err) {
         console.error("Error sending file for download:", err);
         res.status(500).send("Error sending file for download");
@@ -93,11 +93,11 @@ router.post("/youtube/video/download", async (req, res) => {
     res.status(500).send("Error downloading video");
   }
 });
-app.use("/.netlify/functions/app", router);
+app.use("/", router);
 
-// const port = 3000;
-// app.listen(port, () => {
-//   console.log("Server listening on port", port);
-// });
+const port = 3000;
+app.listen(port, () => {
+  console.log("Server listening on port", port);
+});
 
-module.exports.handler = serverless(app);
+// module.exports.handler = serverless(app);
