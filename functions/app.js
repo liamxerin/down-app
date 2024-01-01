@@ -18,7 +18,7 @@ const API_KEY = "AIzaSyDRS9th-uq9kqdctFEeYhHqDzag8UugBMQ";
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
-app.set("views", "./views");
+app.set("views", "../views");
 // get home page for
 router.get("/youtube", (req, res) => {
   const video = 0;
