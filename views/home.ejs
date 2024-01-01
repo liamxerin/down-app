@@ -220,7 +220,7 @@
         <div class="col-md-6 col-sm-6 mx-auto">
           <div class="card card-body mt-4">
             <h4 class="card-title">Youtube Video Downloader</h4>
-            <form action="/youtube/video" method="get">
+            <form action="video" method="get">
               <div class="form-group">
                 <input
                   type="text"
@@ -250,7 +250,7 @@
               ></iframe>
             </div>
             <div class="quality">
-              <form action="/youtube/video/download" method="post">
+              <form action="video/download" method="post">
                 <select
                   class="form-select"
                   aria-label="Default select example"
@@ -264,7 +264,7 @@
                   <option value="1080">1080p</option>
                 </select>
                 <input
-                  type="hidden"
+                  type="text"
                   class="form-controlz"
                   name="link"
                   value="https://www.youtube.com/embed/<%= video.id %>"

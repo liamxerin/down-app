@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const { exec } = require("youtube-dl-exec");
 const { google } = require("googleapis");
-const axios = require("axios");
+// const axios = require("axios");
 const router = express.Router();
 const serverless = require("serverless-http");
 // const fbVideoDownloader = require("fb-video-downloader");
@@ -24,11 +24,6 @@ router.get("/youtube", (req, res) => {
   const video = 0;
 
   res.render("home", { video: video });
-});
-router.get("/facebook", (req, res) => {
-  const video = 0;
-
-  res.render("facebook", { video: video });
 });
 
 function extractVideoId(url) {
@@ -72,39 +67,34 @@ router.post("/youtube/video/download", async (req, res) => {
 
   try {
     const videoQuality = req.body.quality;
-
     const options = ["-f", "bestvideo[height<=" + videoQuality + "]+bestaudio"];
-
     const videoName = "downloaded_video.mp4"; // Specify the name for the downloaded video file
-
     const videoStream = await exec([videoLink, ...options], {
       output: videoName,
     });
-    const stats = await fs.promises.stat(__dirname + "/" + videoName);
+    const filePath = __dirname + "/" + videoName;
+    const stats = await fs.promises.stat(filePath);
     const fileSizeInBytes = stats.size;
     console.log(`File Size: ${fileSizeInBytes} bytes`);
-
     console.log("Video downloaded successfully:", videoName);
     console.log("Video downloaded successfully:", options);
-
-    // Sending the downloaded video file as a response (you might want to send a different response or redirect the user)
-    res.download(__dirname + "/" + videoName, videoName, async (err) => {
+    res.download(filePath, videoName, async (err) => {
       if (err) {
         console.error("Error sending file for download:", err);
         res.status(500).send("Error sending file for download");
       } else {
-        // Optionally, you can delete the file after sending it for download
-
-        fs.unlinkSync(__dirname + "/" + videoName);
+        // Delete the file after sending it for download
+        fs.unlinkSync(filePath);
       }
     });
+    // Sending the downloaded video file as a response (you might want to send a different response or redirect the user)
   } catch (err) {
     console.error("Error downloading video:", err);
     res.status(500).send("Error downloading video");
   }
 });
-app.use(" /.netlify/functions/api", router);
-// listen to the port
+app.use("/.netlify/functions/app", router);
+
 // const port = 3000;
 // app.listen(port, () => {
 //   console.log("Server listening on port", port);

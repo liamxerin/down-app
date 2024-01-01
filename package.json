@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/netlify-lambda serve index.js",
-    "build": "./node_modules/.bin/netlify-lambda serve index.js"
+    "build": "netlify deploy --prod"
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +18,12 @@
     "fb-video-downloader": "^1.0.3",
     "fs": "^0.0.1-security",
     "googleapis": "^129.0.0",
+    "netlify-cli": "^17.10.2",
+    "serverless-http": "^3.2.0",
     "youtube-dl-exec": "^2.5.2",
     "ytdl-core": "^4.11.5"
+  },
+  "devDependencies": {
+    "netlify-lambda": "^2.0.16"
   }
 }
