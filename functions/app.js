@@ -18,7 +18,7 @@ const API_KEY = "AIzaSyDRS9th-uq9kqdctFEeYhHqDzag8UugBMQ";
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
-app.set("views", "../views");
+app.set("views", "./views");
 // get home page for
 router.get("/youtube", (req, res) => {
   const video = 0;
@@ -68,17 +68,17 @@ router.post("/youtube/video/download", async (req, res) => {
   try {
     const videoQuality = req.body.quality;
     const options = ["-f", "bestvideo[height<=" + videoQuality + "]+bestaudio"];
-    const videoName = "downloaded_video.mp4"; // Specify the name for the downloaded video file
+    const videoName = "F:\\youtube-downloader\\functions\\downloaded_video.mp4"; // Specify the name for the downloaded video file
     const videoStream = await exec([videoLink, ...options], {
       output: videoName,
     });
-    const filePath = __dirname + "/" + videoName;
+    const filePath = videoName;
     const stats = await fs.promises.stat(filePath);
     const fileSizeInBytes = stats.size;
     console.log(`File Size: ${fileSizeInBytes} bytes`);
     console.log("Video downloaded successfully:", videoName);
     console.log("Video downloaded successfully:", options);
-    res.download(filePath, videoName, async (err) => {
+    res.download(filePath, async (err) => {
       if (err) {
         console.error("Error sending file for download:", err);
         res.status(500).send("Error sending file for download");
@@ -95,9 +95,9 @@ router.post("/youtube/video/download", async (req, res) => {
 });
 app.use("/.netlify/functions/app", router);
 
-// const port = 3000;
-// app.listen(port, () => {
-//   console.log("Server listening on port", port);
-// });
+const port = 3000;
+app.listen(port, () => {
+  console.log("Server listening on port", port);
+});
 
-module.exports.handler = serverless(app);
+// module.exports.handler = serverless(app);
